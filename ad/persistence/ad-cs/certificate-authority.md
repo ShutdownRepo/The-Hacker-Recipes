@@ -29,7 +29,7 @@ Then, forging (and signing) a certificate can be done as follows.
 
 {% code overflow="wrap" %}
 ```bash
-certipy forge -ca-pfx "CA.pfx" -upn "administrator@corp.local" -subject "CN=Administrator,CN=Users,DC=CORP,DC=LOCAL"
+certipy forge -ca-pfx "CA.pfx" -upn "administrator@corp.local" -subject "CN=Administrator,CN=Users,DC=CORP,DC=LOCAL" (-crl "ldap://...")
 ```
 {% endcode %}
 
@@ -74,11 +74,19 @@ Then, forging and signing a certificate can be done with [ForgeCert](https://git
 
 {% code overflow="wrap" %}
 ```batch
-ForgeCert.exe --CaCertPath "ca.pfx" --CaCertPassword "Password" --Subject "CN=User" --SubjectAltName "administrator@domain.local" --NewCertPath "administrator.pfx" --NewCertPassword "Password"
+ForgeCert.exe --CaCertPath "ca.pfx" --CaCertPassword "Password" --Subject "CN=User" --SubjectAltName "administrator@domain.local" --NewCertPath "administrator.pfx" --NewCertPassword "Password" (--CRL "ldap://...")
 ```
 {% endcode %}
 {% endtab %}
 {% endtabs %}
+
+#### KDC\_ERR\_CLIENT\_NOT\_TRUSTED <a href="#kdc_err_client_not_trusted" id="kdc_err_client_not_trusted"></a>
+
+You could encounter the following error "KDC\_ERR\_CLIENT\_NOT\_TRUSTED" when you try to use forged pfx. According to the certipy documentation :
+
+> The forged certificate can then be used for authentication with Certipy's `auth` command. If the KDC returns `KDC_ERR_CLIENT_NOT_TRUSTED`, it means that the forging was not correct. This usually happens because of a missing certificate revocation list (CRL) in the certificate. You can either specify the CRL manually with `-crl`, or you can use a previously issued certificate as a template with the `-template` parameter. Please note that the template will include all non-defined extensions and attributes in the new certificate, such as the subject and serial number. Certipy will not include any extended key usage in the forged certificate, which means the certificate can be used for any purpose.
+
+You therefore need to add crl flag when forging user pfx. (In my case random string work, if you have more information about feel free to contribute)
 
 ### Rogue CA
 
