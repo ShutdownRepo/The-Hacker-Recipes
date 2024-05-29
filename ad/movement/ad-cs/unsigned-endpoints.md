@@ -28,6 +28,14 @@ This allows for lateral movement, account persistence, and in some cases privile
 
 ## Practice
 
+### Discovery of Web Endpoint
+
+Following bash line allows to find potential endpoint running AD CS web endppoint. Note that machines also responding in basic/ntlm on this endpoint will behave similarly. Nevertheless, this is a server list for possible relay attacks.
+
+```bash
+cat server_ips.txt | httpx -path "/certsrv/certfnsh.asp" -follow-redirect -match-code 401 
+```
+
 ### Web endpoint (ESC8)
 
 {% tabs %}
