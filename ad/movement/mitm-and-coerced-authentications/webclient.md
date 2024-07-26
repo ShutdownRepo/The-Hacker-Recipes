@@ -98,6 +98,13 @@ With a [searchConnector-ms](https://docs.microsoft.com/en-us/windows/win32/searc
 {% tab title="Explorer" %}
 By opening an interactive session with the target (e.g. RDP), opening the Explorer, and type something in the address bar.
 {% endtab %}
+
+{% tab title="Start WebClient Programmatically (with non-admin privileges)" %}
+The WebClient service on Windows 7+ can also be started programmatically as shown in [tiraniddo's research in this blog post](https://www.tiraniddo.dev/2015/03/starting-webclient-service.html). The whole idea behind the research is that the WebClient service is registered with a service trigger. This provides an avenue for automatically starting the service in response to a specific system event, even with non-admin privileges. There are 3 publicly available tools to do that:
+1. [SharpStartWebclient](https://github.com/eversinc33/SharpStartWebclient)
+2. [BOF](https://github.com/outflanknl/C2-Tool-Collection/blob/main/BOF/StartWebClient/SOURCE/StartWebClient.c)
+3. [EtwStartWebClient.cs](https://gist.github.com/klezVirus/af004842a73779e1d03d47e041115797) (which can easily be compiled in both Windows and Linux systems in case Visual Studio is not available at the moment)
+{% endtab %}
 {% endtabs %}
 
 ## Resources
