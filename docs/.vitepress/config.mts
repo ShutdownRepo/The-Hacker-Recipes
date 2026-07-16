@@ -511,6 +511,10 @@ export default defineConfig({
                                     {
                                         "text": "Rights on RODC object",
                                         "link": "/ad/movement/dacl/rights-on-rodc-object.md"
+                                    },
+                                    {
+                                        "text": "BadSuccessor (dMSA abuse)",
+                                        "link": "/ad/movement/dacl/badsuccessor.md"
                                     }
                                 ]
                             },
