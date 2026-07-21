@@ -1,5 +1,5 @@
 ---
-authors: ShutdownRepo
+authors: ShutdownRepo, jamarir
 category: ad
 ---
 
@@ -55,6 +55,20 @@ More help on the CLI commands [here](https://github.com/BloodHoundAD/SharpHound#
 > * Testers can absolutely run SharpHound from a computer that is not enrolled in the AD domain, by running it in a domain user context (e.g. with runas, [pass-the-hash](../../movement/ntlm/pth.md) or [overpass-the-hash](../../movement/kerberos/pass-the/ptk.md)). This is useful when domain computers have antivirus or other protections preventing (or slowing) testers from using enumerate or exploitation tools.
 > * When obtaining a foothold on an AD domain, testers should first run SharpHound with all collection methods, and then start a loop collection to enumerate more sessions.
 
+BloodHound collection (LDAP-wise only) can also be done with this [Invoke-PassTheCert](https://github.com/jamarir/Invoke-PassTheCert) fork (PowerShell version).
+
+> Note: the [README](https://github.com/jamarir/Invoke-PassTheCert/blob/main/README.md) contains the methodology to request a certificate using [certreq](https://github.com/GhostPack/Certify/issues/13#issuecomment-3622538862) from Windows (with a password, or an NTHash), and provides numerous actions (e.g. raw LDAP queries, Shadow Credentials enumeration & exploitation, DnsRecords enumeration, etc.)
+```powershell
+# Import the PowerShell script and show its manual
+Import-Module .\Invoke-PassTheCert.ps1
+.\Invoke-PassTheCert.ps1 -?
+# Authenticate to LDAP/S
+$LdapConnection = Invoke-PassTheCert-GetLDAPConnectionInstance -Server 'LDAP_IP' -Port 636 -Certificate cert.pfx
+# List all the available actions
+Invoke-PassTheCert -a -NoBanner
+# Collect LDAP-wise BloodHound data of the 'ADLAB.LOCAL' domain
+Invoke-PassTheCert -Action 'PowerHound' -LdapConnection $LdapConnection -Domain 'ADLAB.LOCAL'
+```
 
 === UNIX-like
 
