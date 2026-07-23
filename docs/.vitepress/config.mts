@@ -1126,8 +1126,15 @@ export default defineConfig({
                                         "link": "/infra/privilege-escalation/windows/vulnerable-drivers.md"
                                     },
                                     {
-                                        "text": "🛠️ Account privileges",
-                                        "link": "/infra/privilege-escalation/windows/account-privileges.md"
+                                        "text": "Account privileges",
+                                        "link": "/infra/privilege-escalation/windows/account-privileges/index.md",
+                                        "collapsed": true,
+                                        "items": [
+                                            {
+                                                "text": "SeBackupPrivilege",
+                                                "link": "/infra/privilege-escalation/windows/account-privileges/SeBackupPrivilege.md"
+                                            }
+                                        ]
                                     },
                                     {
                                         "text": "🛠️ Kernel exploitation",
