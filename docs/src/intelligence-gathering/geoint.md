@@ -23,8 +23,8 @@ Allowed areas for drones:\
 IMAGES\
 Find general metadata:\
 \-[http://fotoforensics.com](http://fotoforensics.com)\
+\-[Metadata Viewer](https://metadataremover.ai/metadata-viewer) (browser-local EXIF, IPTC, and XMP inspection)\
 Find metadata + hidden pixels + error level analysis (ELA) + ect..\
-\-[http://exif.regex.info/exif.cgi](http://exif.regex.info/exif.cgi)\
 \-[https://29a.ch/photo-forensics](https://29a.ch/photo-forensics)\
 Reverse image search:\
 _**_-[https://tineye.com/](https://tineye.com/)\
@@ -33,6 +33,9 @@ Search for similar images:\
 \-[https://yandex.com/images/](https://yandex.com/images/)\
 Remove image background:\
 \-[https://www.remove.bg/](https://www.remove.bg/)
+
+> [!NOTE]
+> Preserve the original image and corroborate important metadata values with a second parser before drawing conclusions.
 
 > [!TIP]
 > It is possible to image search within an image using for instance the Bing's tool:\
